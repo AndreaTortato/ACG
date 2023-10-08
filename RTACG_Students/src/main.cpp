@@ -16,6 +16,8 @@
 
 #include "shaders/intersectionshader.h"
 #include "shaders/depthshader.h"
+#include "shaders/directshader.h"
+
 
 
 
@@ -26,11 +28,12 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     std::vector<PointLightSource>*& lightSourceList)
 {
     /* **************************** */
-      /* Declare and place the camera */
-      /* **************************** */
-      // By default, this gives an ID transform
-      //  which means that the camera is located at (0, 0, 0)
-      //  and looking at the "+z" direction
+    /* Declare and place the camera */
+    /* **************************** */
+
+    // By default, this gives an ID transform
+    //  which means that the camera is located at (0, 0, 0)
+    //  and looking at the "+z" direction
     Matrix4x4 cameraToWorld;
     double fovDegrees = 60;
     double fovRadians = Utils::degreesToRadians(fovDegrees);
@@ -39,13 +42,16 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     /* ************************** */
     /* DEFINE YOUR MATERIALS HERE */
     /* ************************** */
-    // (...)
-    //  EXAMPLE:  Material *green_50 = new Phong (Vector3D(0.2, 0.7, 0.3), Vector3D(0.2, 0.6, 0.2), 50);
 
+    //  EXAMPLE:  Material *green_50 = new Phong (Vector3D(0.2, 0.7, 0.3), Vector3D(0.2, 0.6, 0.2), 50);
+    Material* phong1 = new Phong(Vector3D(0.2, 0.7, 0.3), Vector3D(0.2, 0.6, 0.2), 50);
+    Material* phong2 = new Phong(Vector3D(1.2, 0.2, 1.0), Vector3D(0.5, 0.2, 0.1), 25);
+    Material* phong3 = new Phong(Vector3D(0.4, 0.1, 1.5), Vector3D(1.2, 2.6, 0.8), 60);
 
     /* ******* */
     /* Objects */
     /* ******* */
+
     // Create a heterogeneous list of objects of type shape
     // (some might be triangles, other spheres, plans, etc)
     objectsList = new std::vector<Shape*>;
@@ -80,7 +86,6 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     //TIP: When computing Phong Illumination start with one light!!
     // 
 
-
     double offset = 3.0;
     lightSourceList = new std::vector<PointLightSource>;
 
@@ -95,7 +100,6 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     //lightSourceList->push_back(pointLS2);
     //lightSourceList->push_back(pointLS3);
 
-    
 }
 
 
@@ -177,6 +181,7 @@ int main()
     
     Shader *shader = new IntersectionShader (intersectionColor, bgColor);
     Shader* dshader = new DepthShader(intersectionColor, 7.0, bgColor);
+    Shader* pshader = new DirectShader(intersectionColor, 7.0, bgColor);
   
 
     // Build the scene---------------------------------------------------------
@@ -191,14 +196,13 @@ int main()
     //---------------------------------------------------------------------------
 
     //Paint Image ONLY TASK 1
-    PaintImage(film);
+    //PaintImage(film);
 
     // Launch some rays! TASK 2,3,...
     // 
-    raytrace(cam, shader, film, objectsList, lightSourceList);
-    raytrace(cam, dshader, film, objectsList, lightSourceList);
-
-    
+    //raytrace(cam, shader, film, objectsList, lightSourceList);
+    //raytrace(cam, dshader, film, objectsList, lightSourceList);   
+    raytrace(cam, pshader, film, objectsList, lightSourceList);
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;

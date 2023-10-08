@@ -1,4 +1,27 @@
-﻿  utils.cpp
-  depthshader.cpp
+﻿  material.cpp
+  directshader.cpp
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,22): error C2259: "Material": no se puede crear una instancia de una clase abstract
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(6): message : vea la declaración de 'Material'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,22): message : debido a los siguientes miembros:
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,22): message : 'Vector3D Material::getReflectance(const Vector3D &,const Vector3D &,const Vector3D &) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(11): message : vea la declaración de 'Material::getReflectance'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,22): message : 'bool Material::hasSpecular(void) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(13): message : vea la declaración de 'Material::hasSpecular'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,22): message : 'bool Material::hasTransmission(void) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(14): message : vea la declaración de 'Material::hasTransmission'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,22): message : 'bool Material::hasDiffuseOrGlossy(void) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(15): message : vea la declaración de 'Material::hasDiffuseOrGlossy'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,31): error C2259: "Material": no se puede crear una instancia de una clase abstract
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(6): message : vea la declaración de 'Material'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,31): message : debido a los siguientes miembros:
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,31): message : 'Vector3D Material::getReflectance(const Vector3D &,const Vector3D &,const Vector3D &) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(11): message : vea la declaración de 'Material::getReflectance'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,31): message : 'bool Material::hasSpecular(void) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(13): message : vea la declaración de 'Material::hasSpecular'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,31): message : 'bool Material::hasTransmission(void) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(14): message : vea la declaración de 'Material::hasTransmission'
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\shaders\directshader.cpp(29,31): message : 'bool Material::hasDiffuseOrGlossy(void) const': es abstracto
+C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\ACG\RTACG_Students\src\materials\material.h(15): message : vea la declaración de 'Material::hasDiffuseOrGlossy'
+  intersectionshader.cpp
+  sphere.cpp
   Generando código...
-  RTIS_V2.vcxproj -> C:\Users\Usuario\Desktop\upf\5y\1 trim\GOA\Lab1\RTACG_Students\VisualStudio2015\RTACG\x64\Debug\RT_ACG.exe

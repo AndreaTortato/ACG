@@ -15,16 +15,18 @@ Vector3D DepthShader::computeColor(const Ray& r, const std::vector<Shape*>& objL
     double hitDist;
 
     if (Utils::getClosestIntersection(r, objList, its))
-    {
+    {    
+        Vector3D color;
+
         hitDist = sqrt((its.itsPoint.x - r.d.x) * (its.itsPoint.x - r.d.x) +
                       (its.itsPoint.y - r.d.y) * (its.itsPoint.y - r.d.y) +
                       (its.itsPoint.z - r.d.z) * (its.itsPoint.z - r.d.z));
 
         //TASK 3
-        Vector3D color = Vector3D(0, (double)(1 - hitDist / maxDist), 0);
+        color = Vector3D(0, (double)(1 - hitDist / maxDist), 0);
 
         //TASK 4
-        Vector3D color = (its.normal + Vector3D(1.0, 1.0, 1.0)) / 2;
+        color = (its.normal + Vector3D(1.0, 1.0, 1.0)) / 2;
 
         return color;
     }
