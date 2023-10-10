@@ -1,9 +1,6 @@
 #include "depthshader.h"
 #include "../core/utils.h"
 
-DepthShader::DepthShader() :
-   color(Vector3D(1, 0, 0))
-{ }
 
 DepthShader::DepthShader(Vector3D color_, double maxDist_, Vector3D bgColor_) :
    color(color_), maxDist(maxDist_), Shader(bgColor_)
@@ -22,11 +19,7 @@ Vector3D DepthShader::computeColor(const Ray& r, const std::vector<Shape*>& objL
                       (its.itsPoint.y - r.d.y) * (its.itsPoint.y - r.d.y) +
                       (its.itsPoint.z - r.d.z) * (its.itsPoint.z - r.d.z));
 
-        //TASK 3
         color = Vector3D(0, (double)(1 - hitDist / maxDist), 0);
-
-        //TASK 4
-        color = (its.normal + Vector3D(1.0, 1.0, 1.0)) / 2;
 
         return color;
     }

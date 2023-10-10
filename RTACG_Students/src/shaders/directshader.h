@@ -1,5 +1,5 @@
-#ifndef DIRECTSHADER_H
-#define DIRECTSHADER_H
+#ifndef DIRECTSHADER
+#define DIRECTSHADER
 
 #include "shader.h"
 
@@ -7,7 +7,7 @@
 class DirectShader : public Shader
 {
 public:
-    DirectShader();
+
     DirectShader(Vector3D color_, double maxDist_, Vector3D bgColor_);
 
     Vector3D computeColor(const Ray& r,
@@ -19,4 +19,4 @@ private:
     Vector3D color;
 };
 
-#endif // DIRECTSHADER_H
+#endif // DIRECTSHADER

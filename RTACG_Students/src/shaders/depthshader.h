@@ -1,5 +1,5 @@
-#ifndef DEPTHSHADER_H
-#define DEPTHSHADER_H
+#ifndef DEPTHSHADER
+#define DEPTHSHADER
 
 #include "shader.h"
 
@@ -7,7 +7,7 @@
 class DepthShader : public Shader
 {
 public:
-    DepthShader();
+
     DepthShader(Vector3D color_, double maxDist_, Vector3D bgColor_);
 
     Vector3D computeColor(const Ray &r,
@@ -19,4 +19,4 @@ private:
     Vector3D color;
 };
 
-#endif // DEPTHSHADER_H
+#endif // DEPTHSHADER
