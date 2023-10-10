@@ -26,7 +26,7 @@ Vector3D DirectShader::computeColor(const Ray& r, const std::vector<Shape*>& obj
             double maxT = (light.getPosition() - its->itsPoint).length();
 
             Ray wiRay = Ray(its->itsPoint, wi, 0, Epsilon, maxT);
-            const Material phongmat = its->shape->getMaterial();
+            const Material& phongmat = its->shape->getMaterial();
             Vector3D rp = phongmat.getReflectance(its->normal, (r.o - its->itsPoint).normalized(), wi);
 
             if (!Utils::hasIntersection(wiRay, objList)) color += Li * rp;

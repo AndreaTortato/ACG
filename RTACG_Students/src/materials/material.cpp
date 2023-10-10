@@ -26,7 +26,7 @@ Vector3D Phong::getReflectance(const Vector3D& n, const Vector3D& wo, const Vect
     Vector3D wr = Vector3D(2) * dot(n, wi) * n - wi;
     Vector3D reflection = kd * dot(wi, n) + ks * pow(dot(wo, wr), alpha);
 
-    return reflection;
+    return Vector3D(1.0, 1.0, 1.0);
 }
 
 bool Material::hasSpecular() const
