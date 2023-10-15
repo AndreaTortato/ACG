@@ -11,9 +11,9 @@ Vector3D Phong::getReflectance(const Vector3D& n, const Vector3D& wo, const Vect
 {
     //ideal reflection
     Vector3D wr = Vector3D(2.0) * dot(n, wi) * n - wi;
-    Vector3D reflection = kd * dot(wi, n) + ks * pow(dot(wo, wr), alpha);
+    Vector3D reflection = kd * std::max(dot(wi, n), 0.0) + ks * pow(std::max(dot(wo, wr), 0.0), alpha);
 
-   return reflection;
+    return reflection;
 }
 
 bool Phong::hasSpecular() const
@@ -28,5 +28,5 @@ bool Phong::hasTransmission() const
 
 bool Phong::hasDiffuseOrGlossy() const
 {
-    return false;
+    return true;
 }
