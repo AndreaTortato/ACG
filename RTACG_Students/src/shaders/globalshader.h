@@ -4,11 +4,11 @@
 #include "shader.h"
 
 
-class GLobalShader : public Shader
+class GlobalShader : public Shader
 {
 public:
 
-    GLobalShader(Vector3D color_, double maxDist_, Vector3D bgColor_);
+    GlobalShader(Vector3D ambient_);
 
     Vector3D computeColor(const Ray& r,
         const std::vector<Shape*>& objList,
@@ -18,4 +18,4 @@ private:
     Vector3D ambient;
 };
 
-#endif // DIRECTSHADER
+#endif // GLOBALSHADER
