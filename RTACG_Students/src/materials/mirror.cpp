@@ -23,3 +23,8 @@ bool Mirror::hasDiffuseOrGlossy() const
 {
     return false;
 }
+
+Vector3D Mirror::getDiffuseCoefficient() const 
+{
+    return Vector3D(-1);
+}

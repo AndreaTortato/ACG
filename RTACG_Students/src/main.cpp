@@ -18,6 +18,7 @@
 #include "shaders/depthshader.h"
 #include "shaders/normalshader.h"
 #include "shaders/directshader.h"
+#include "shaders/globalshader.h"
 
 #include "materials/phong.h"
 #include "materials/mirror.h"
@@ -44,7 +45,7 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     // (...)
 
     Material* phong1 = new Phong(Vector3D(0.2, 0.7, 0.3), Vector3D(0.2, 0.6, 0.2), 10);
-    Material* phong2 = new Phong(Vector3D(0.2, 0.2, 0.4), Vector3D(0.5, 0.2, 0.1), 10);
+    Material* phong2 = new Phong(Vector3D(0.2, 0.2, 0.4), Vector3D(0.5, 0.2, 0.1), 10); ////////////////////// OLD PHONG
     Material* phong3 = new Phong(Vector3D(0.4, 0.1, 0.1), Vector3D(0.2, 0.6, 0.8), 10);
 
     /* ******* */
@@ -263,6 +264,7 @@ int main()
     Shader* depthShader = new DepthShader(depthColor, maxDist, bgColor);
     Shader* normalShader = new NormalShader(depthColor, maxDist, bgColor);
     Shader* phongShader = new DirectShader(depthColor, maxDist, bgColor);
+    Shader* globalShader = new GlobalShader(0.1);
 
 
     // Build the scene---------------------------------------------------------
@@ -272,7 +274,11 @@ int main()
     std::vector<Shape*>* objectsList;
     std::vector<PointLightSource>* lightSourceList;
     //Create Scene Geometry and Illumiantion
+    
+    //FOR LAB 1 
     //buildSceneSphere(cam, film, objectsList, lightSourceList);
+
+    //FOR LAB 2
     buildSceneCornellBox(cam, film, objectsList, lightSourceList);
 
     //---------------------------------------------------------------------------
@@ -292,7 +298,10 @@ int main()
     //raytrace(cam, normalShader, film, objectsList, lightSourceList);
 
     //TASK 5
-    raytrace(cam, phongShader, film, objectsList, lightSourceList);
+    //raytrace(cam, phongShader, film, objectsList, lightSourceList);
+
+    //LAB 2
+    raytrace(cam, globalShader, film, objectsList, lightSourceList);
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;

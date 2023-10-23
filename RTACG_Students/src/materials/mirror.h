@@ -11,6 +11,7 @@ public:
     bool hasSpecular() const override;
     virtual bool hasTransmission() const override;
     virtual bool hasDiffuseOrGlossy() const override;
+    Vector3D getDiffuseCoefficient() const override;
 };
 
 #endif // MIRROR
