@@ -23,7 +23,7 @@
 #include "materials/phong.h"
 #include "materials/mirror.h"
 #include "materials/transmissive.h"
-
+ 
 
 void buildSceneSphere(Camera*& cam, Film*& film,
     std::vector<Shape*>*& objectsList, std::vector<PointLightSource>*& lightSourceList)
