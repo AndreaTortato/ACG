@@ -40,8 +40,8 @@ Vector3D GlobalShader::computeColor(const Ray& r,
             }
 
             HemisphericalSampler hSampler = HemisphericalSampler();            
-            int maxDepth = 8;
-            int nSamples = 10;
+            int maxDepth = 10;
+            int nSamples = 20;
             Vector3D Li, Li_n, Li_r;
 
             //calculate indirect light (3.2.2)
@@ -62,7 +62,7 @@ Vector3D GlobalShader::computeColor(const Ray& r,
             else if (r.depth == maxDepth)
             {
                 //add indirect lighting (3.2.1)
-                Lind = its.shape->getMaterial().getDiffuseCoefficient() * ambient; 
+                Lind += its.shape->getMaterial().getDiffuseCoefficient() * ambient; 
             }
             else
             {
@@ -75,8 +75,8 @@ Vector3D GlobalShader::computeColor(const Ray& r,
                 Li_n = Vector3D(0.5); //computeColor(Ray_n, objList, lsList);
                 Li_r = Vector3D(0.5); //computeColor(Ray_r, objList, lsList);
                 Lind += (Li_n + Li_r) / (4 * 3.141014);
+
             }
-            printf("%i, ", r.depth);
 
             Lo += Ldir + Lind * 2;
         }
