@@ -89,3 +89,8 @@ RTACG_Students/VisualStudio2015/RTACG/x64/Debug/infiniteplan.obj
 RTACG_Students/VisualStudio2015/RTACG/x64/Debug/intersection.obj
 *.vsidx
 *.db
+ACG-Framework-Student/visualstudio15/.vs/visualstudio2015/v17/.suo
+ACG-Framework-Student/visualstudio15/.vs/visualstudio2015/v17/ipch/AutoPCH/465c23b4cc9b6a92/MAIN.ipch
+ACG-Framework-Student/visualstudio15/.vs/visualstudio2015/FileContentIndex/read.lock
+ACG-Framework-Student/visualstudio15/.vs/visualstudio2015/v17/ipch/AutoPCH/83eacf18b1dd42bd/APPLICATION.ipch
+ACG-Framework-Student/visualstudio15/.vs/visualstudio2015/v17/ipch/AutoPCH/9596cbb569c12f9f/FRAMEWORK.ipch

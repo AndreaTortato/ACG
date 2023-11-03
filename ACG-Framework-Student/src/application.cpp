@@ -45,16 +45,34 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	{
 		// EXAMPLE OF HOW TO CREATE A SCENE NODE
-		SceneNode* node = new SceneNode("Visible node");
-		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
-		node->model.scale(1, 1, 1);
-		StandardMaterial* mat = new StandardMaterial();
-		node->material = mat;
-		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
-		node_list.push_back(node);
+		// SceneNode* node = new SceneNode("Visible node");
+		// node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
+		// node->model.scale(1, 1, 1);
+		// StandardMaterial* mat = new StandardMaterial();
+		// node->material = mat;
+		// mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
+		// node_list.push_back(node);
 
 		// TODO: create all the volumes to use in the app
-		// ...
+		Volume* volume = new Volume();
+		Texture* texture = new Texture();
+		Mesh* mesh = new Mesh();
+		Material* material = new StandardMaterial();
+		
+		volume->loadPNG("data/volumes/teapot_16_16.png", 16, 16);
+		//volume->loadPVM("data/volumes/CT-Abdomen.pvm");
+		texture->create3DFromVolume(volume, GL_CLAMP_TO_EDGE);
+		mesh->createCube();
+		material->texture = texture;
+		//material->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/basic.fs");
+
+		SceneNode* node = new SceneNode("Visible node");
+		
+		float width_div = volume->width * volume->widthSpacing; //for right proportions
+		node->model.setScale(1, volume->height * volume->heightSpacing / width_div, volume->depth * volume->depthSpacing / width_div);
+		node->mesh = mesh;
+		node->material = material;
+		node_list.push_back(node);
 	}
 	
 	//hide the cursor
