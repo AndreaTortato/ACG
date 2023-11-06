@@ -57,21 +57,21 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		Volume* volume = new Volume();
 		Texture* texture = new Texture();
 		Mesh* mesh = new Mesh();
-		Material* material = new StandardMaterial();
-		
+		StandardMaterial* material = new StandardMaterial();
+		SceneNode* node = new SceneNode("Visible node");
+
 		volume->loadPNG("data/volumes/teapot_16_16.png", 16, 16);
 		//volume->loadPVM("data/volumes/CT-Abdomen.pvm");
-		texture->create3DFromVolume(volume, GL_CLAMP_TO_EDGE);
-		mesh->createCube();
+		texture->create3DFromVolume(volume);
 		material->texture = texture;
-		//material->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/basic.fs");
-
-		SceneNode* node = new SceneNode("Visible node");
+		node->mesh = mesh;
+		mesh->createCube();
+		material->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/volumetric.fs");
 		
 		float width_div = volume->width * volume->widthSpacing; //for right proportions
 		node->model.setScale(1, volume->height * volume->heightSpacing / width_div, volume->depth * volume->depthSpacing / width_div);
-		node->mesh = mesh;
 		node->material = material;
+
 		node_list.push_back(node);
 	}
 	
