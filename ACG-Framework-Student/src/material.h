@@ -40,5 +40,18 @@ public:
 };
 
 // TODO: Derived class VolumeMaterial
+class VolumeMaterial : public Material {
+public:
+
+	VolumeMaterial();
+	~VolumeMaterial();
+
+	void setUniforms(Camera* camera, Matrix44 model);
+	void render(Mesh* mesh, Matrix44 model, Camera* camera);
+	void renderInMenu();
+
+	float ray_step;
+	float brightness;
+};
 
 #endif

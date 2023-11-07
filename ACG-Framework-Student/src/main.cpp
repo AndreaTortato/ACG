@@ -210,7 +210,7 @@ void mainLoop(SDL_Window* window)
 
 		ImGui::EndFrame();
 	}
-
+	
 	SDL_GL_DeleteContext(glcontext);
 	SDL_DestroyWindow(game->window);
 	SDL_Quit();

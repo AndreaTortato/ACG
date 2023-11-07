@@ -45,33 +45,32 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	{
 		// EXAMPLE OF HOW TO CREATE A SCENE NODE
-		// SceneNode* node = new SceneNode("Visible node");
-		// node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
-		// node->model.scale(1, 1, 1);
-		// StandardMaterial* mat = new StandardMaterial();
-		// node->material = mat;
-		// mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
-		// node_list.push_back(node);
+		//SceneNode* node = new SceneNode("Visible node");
+		//node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
+		//node->model.scale(1, 1, 1);
+		//StandardMaterial* mat = new StandardMaterial();
+		//node->material = mat;
+		//mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
+		//node_list.push_back(node);
 
 		// TODO: create all the volumes to use in the app
 		Volume* volume = new Volume();
-		Texture* texture = new Texture();
+		Texture* vol_texture = new Texture();
 		Mesh* mesh = new Mesh();
-		StandardMaterial* material = new StandardMaterial();
-		SceneNode* node = new SceneNode("Visible node");
+		VolumeMaterial* vol_mat = new VolumeMaterial();		
+		VolumeNode* node = new VolumeNode("Volume node");
 
-		volume->loadPNG("data/volumes/teapot_16_16.png", 16, 16);
+		volume->loadPNG("data/volumes/teapot_16_16.png");
 		//volume->loadPVM("data/volumes/CT-Abdomen.pvm");
-		texture->create3DFromVolume(volume);
-		material->texture = texture;
+		vol_texture->create3DFromVolume(volume);
+		vol_mat->texture = vol_texture;
+		node->material = vol_mat;
 		node->mesh = mesh;
-		mesh->createCube();
-		material->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/volumetric.fs");
+		node->mesh->createCube();
 		
 		float width_div = volume->width * volume->widthSpacing; //for right proportions
 		node->model.setScale(1, volume->height * volume->heightSpacing / width_div, volume->depth * volume->depthSpacing / width_div);
-		node->material = material;
-
+		
 		node_list.push_back(node);
 	}
 	
@@ -103,8 +102,7 @@ void Application::render(void)
 	}
 
 	//Draw the floor grid
-	if(render_debug)
-		drawGrid();
+	if(render_debug) drawGrid();
 }
 
 void Application::update(double seconds_elapsed)
