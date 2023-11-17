@@ -52,6 +52,23 @@ public:
 
 	float ray_step;
 	float brightness;
+
+	bool jittering;
+	bool transferF;
+	bool clipping;
+	bool isosurface;
+	Texture* tf_texture;
+
+	float threshold;
+	Vector4 plane;
+
+	vec3 light_pos;
+	vec3 ambient_light;
+	vec3 diffuse_light;
+	vec3 specular_light;
+	vec3 ka;
+	vec3 kd;
+	float alpha;
 };
 
 #endif

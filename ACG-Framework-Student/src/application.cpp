@@ -56,15 +56,18 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		// TODO: create all the volumes to use in the app
 		Volume* volume = new Volume();
 		Texture* vol_texture = new Texture();
+		Texture* tf_texture = Texture::Get("data/images/tf_imagen.png");
 		Mesh* mesh = new Mesh();
 		VolumeMaterial* vol_mat = new VolumeMaterial();		
 		VolumeNode* node = new VolumeNode("Volume node");
 
-		volume->loadPNG("data/volumes/teapot_16_16.png");
-		//volume->loadPVM("data/volumes/CT-Abdomen.pvm");
+		//volume->loadPNG("data/volumes/teapot_16_16.png");
+		volume->loadPVM("data/volumes/CT-Abdomen.pvm");
 		vol_texture->create3DFromVolume(volume);
 		vol_mat->texture = vol_texture;
-		node->material = vol_mat;
+		vol_mat->tf_texture = tf_texture;
+		vol_mat->plane = Vector4(15, 15, 20, -7); //(0, 30, 0, -17) to eliminate unwanted part of abdomen
+		node->material = vol_mat;			   //(15, 15, 20, -7) good plane to open teapot
 		node->mesh = mesh;
 		node->mesh->createCube();
 		
