@@ -57,9 +57,10 @@ public:
 	bool transferF;
 	bool clipping;
 	bool isosurface;
-	Texture* tf_texture;
+	Texture* tf_texture = NULL;
 
 	float threshold;
+	float h_value;
 	Vector4 plane;
 
 	vec3 light_pos;
@@ -69,6 +70,7 @@ public:
 	vec3 ka;
 	vec3 kd;
 	float alpha;
+
 };
 
 #endif

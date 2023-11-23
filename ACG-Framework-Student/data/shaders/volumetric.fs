@@ -12,6 +12,7 @@ uniform bool u_isosurface;
 uniform sampler2D u_tf_texture;
 
 uniform float u_threshold;
+uniform float h_value;
 uniform vec4 u_plane;
 
 uniform vec3 light_pos;
@@ -34,17 +35,15 @@ float rand(vec2 co)
     return fract(sin(dot(co,vec2(12.9898, 78.233))) * 43758.5453);
 }
 
-vec3 gradient(vec3 text_coords)
+vec3 gradient(vec3 text_coords, float h_value)
 { 
-    float offset = 0.01;
-
 	//x, y, z positions with offset
-	vec3 x1 = text_coords + vec3 (offset, 0.0, 0.0);
-	vec3 x2 = text_coords + vec3 (-offset, 0.0, 0.0);
-	vec3 y1 = text_coords + vec3 (0.0, offset, 0.0);
-	vec3 y2 = text_coords + vec3 (0.0, -offset, 0.0);
-	vec3 z1 = text_coords + vec3 (0.0, 0.0, offset);
-	vec3 z2 = text_coords + vec3 (0.0, 0.0, -offset);
+	vec3 x1 = text_coords + vec3 (h_value, 0.0, 0.0);
+	vec3 x2 = text_coords + vec3 (-h_value, 0.0, 0.0);
+	vec3 y1 = text_coords + vec3 (0.0, h_value, 0.0);
+	vec3 y2 = text_coords + vec3 (0.0, -h_value, 0.0);
+	vec3 z1 = text_coords + vec3 (0.0, 0.0, h_value);
+	vec3 z2 = text_coords + vec3 (0.0, 0.0, -h_value);
 	
 	//Sample intensity 
 	float intensity_x1 = texture3D(u_volume_texture, x1).x;
@@ -60,7 +59,7 @@ vec3 gradient(vec3 text_coords)
 	float intensity_z = intensity_z1 - intensity_z2;
 	
 	//Compute gradient and normalize
-	vec3 gradient = vec3(intensity_x, intensity_y, intensity_z) / (2.0 * offset);
+	vec3 gradient = vec3(intensity_x, intensity_y, intensity_z) / (2.0 * h_value);
 	gradient = normalize(gradient);
 	vec3 normal = 1.0 - gradient;
 
@@ -69,8 +68,7 @@ vec3 gradient(vec3 text_coords)
 
 //implemented from GTR
 vec3 phong(vec3 v_normal, vec3 text_coords) 
-{
-    
+{  
     vec4 color = u_color;
 
     vec3 N = normalize(v_normal);
@@ -84,13 +82,11 @@ vec3 phong(vec3 v_normal, vec3 text_coords)
     float RV = dot(R, V);
     RV = clamp(RV, 0.0, 1.0);
 
-    vec3 ks = color.xyz * color.w;
+    vec3 ambient = ka * ambient_light;
+    vec3 diffuse = kd * (LN) * diffuse_light;
+    vec3 specular = color.w * pow(RV, alpha) * specular_light;
 
-    vec3 ambient = ka * ambient_light * color.xyz;
-    vec3 diffuse = kd * (LN) * diffuse_light * color.xyz;
-    vec3 specular = ks * pow(RV, alpha) * specular_light;
-
-    vec3 illumination = ambient + diffuse + specular;
+    vec3 illumination = color.xyz * (diffuse + specular) + ambient;
 
     return illumination;
 }
@@ -103,7 +99,7 @@ void main()
     vec4 phong_color = vec4(0.0);
 
     //1. ray setup
-    vec3 rayDir = normalize(v_position - u_local_camera_pos); //using u_camera_pos glithecs the volume when autorotating
+    vec3 rayDir = normalize(v_position - u_local_camera_pos); 
     vec3 samplePos = v_position; //initialized as entry point to the volume
 
     if (u_jittering)
@@ -142,7 +138,7 @@ void main()
         {
             if (d > u_threshold) 
             {
-                normal = gradient(text_coords);
+                normal = gradient(text_coords, h_value);
 				phong_color = vec4(phong(normal, text_coords), 1.0);
             }
         }
@@ -156,7 +152,7 @@ void main()
         //4. composition
         if (u_isosurface) 
         {
-            finalColor = phong_color  * u_brightness;
+            finalColor += u_ray_step_lenght * (1.0 - finalColor.a) * phong_color  * u_brightness;
         }
         else 
         {

@@ -54,27 +54,151 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		//node_list.push_back(node);
 
 		// TODO: create all the volumes to use in the app
-		Volume* volume = new Volume();
-		Texture* vol_texture = new Texture();
-		Texture* tf_texture = Texture::Get("data/images/tf_imagen.png");
-		Mesh* mesh = new Mesh();
-		VolumeMaterial* vol_mat = new VolumeMaterial();		
-		VolumeNode* node = new VolumeNode("Volume node");
 
-		//volume->loadPNG("data/volumes/teapot_16_16.png");
-		volume->loadPVM("data/volumes/CT-Abdomen.pvm");
-		vol_texture->create3DFromVolume(volume);
-		vol_mat->texture = vol_texture;
-		vol_mat->tf_texture = tf_texture;
-		vol_mat->plane = Vector4(15, 15, 20, -7); //(0, 30, 0, -17) to eliminate unwanted part of abdomen
-		node->material = vol_mat;			   //(15, 15, 20, -7) good plane to open teapot
-		node->mesh = mesh;
-		node->mesh->createCube();
+		////BONSAI
+		{
+			Volume* bonsai_volume = new Volume();
+			Texture* bonsai_vol_texture = new Texture();
+			Texture* bonsai_tf_texture = Texture::Get("data/images/tf_imagen.png");
+			Mesh* bonsai_mesh = new Mesh();
+			VolumeMaterial* bonsai_vol_mat = new VolumeMaterial();
+			VolumeNode* bonsai_node = new VolumeNode("Volume node");
+
+			bonsai_volume->loadPNG("data/volumes/bonsai_16_16.png");
+			bonsai_vol_texture->create3DFromVolume(bonsai_volume, GL_CLAMP_TO_EDGE);
+			bonsai_vol_mat->texture = bonsai_vol_texture;
+			bonsai_vol_mat->tf_texture = bonsai_tf_texture;
+			bonsai_vol_mat->plane = Vector4(15, 15, 20, -7);
+			bonsai_node->material = bonsai_vol_mat;
+			bonsai_node->mesh = bonsai_mesh;
+			bonsai_node->mesh->createCube();
+
+			float width_div = bonsai_volume->width * bonsai_volume->widthSpacing; //for right proportions
+			bonsai_node->model.setScale(1, bonsai_volume->height * bonsai_volume->heightSpacing / width_div, bonsai_volume->depth * bonsai_volume->depthSpacing / width_div);
 		
-		float width_div = volume->width * volume->widthSpacing; //for right proportions
-		node->model.setScale(1, volume->height * volume->heightSpacing / width_div, volume->depth * volume->depthSpacing / width_div);
+			node_list.push_back(bonsai_node);
+		}
+
+		////ABDOMEN
+		{
+			Volume* abdomen_volume = new Volume();
+			Texture* abdomen_vol_texture = new Texture();
+			Texture* abdomen_tf_texture = Texture::Get("data/images/tf_imagen.png");
+			Mesh* abdomen_mesh = new Mesh();
+			VolumeMaterial* abdomen_vol_mat = new VolumeMaterial();
+			VolumeNode* abdomen_node = new VolumeNode("Volume node");
+
+			abdomen_volume->loadPVM("data/volumes/CT-Abdomen.pvm");
+			abdomen_vol_texture->create3DFromVolume(abdomen_volume, GL_CLAMP_TO_EDGE);
+			abdomen_vol_mat->texture = abdomen_vol_texture;
+			abdomen_vol_mat->tf_texture = abdomen_tf_texture;
+			abdomen_vol_mat->plane = Vector4(15, 15, 20, -7);
+			abdomen_node->material = abdomen_vol_mat;
+			abdomen_node->mesh = abdomen_mesh;
+			abdomen_node->mesh->createCube();
+
+			float width_div = abdomen_volume->width * abdomen_volume->widthSpacing; //for right proportions
+			abdomen_node->model.setScale(1, abdomen_volume->height * abdomen_volume->heightSpacing / width_div, abdomen_volume->depth * abdomen_volume->depthSpacing / width_div);
 		
-		node_list.push_back(node);
+			node_list.push_back(abdomen_node);
+		}
+
+		////DAISY
+		{
+			Volume* daisy_volume = new Volume();
+			Texture* daisy_vol_texture = new Texture();
+			Texture* daisy_tf_texture = Texture::Get("data/images/tf_imagen.png");
+			Mesh* daisy_mesh = new Mesh();
+			VolumeMaterial* daisy_vol_mat = new VolumeMaterial();
+			VolumeNode* daisy_node = new VolumeNode("Volume node");
+			
+			daisy_volume->loadPVM("data/volumes/Daisy.pvm");
+			daisy_vol_texture->create3DFromVolume(daisy_volume, GL_CLAMP_TO_EDGE);
+			daisy_vol_mat->texture = daisy_vol_texture;
+			daisy_vol_mat->tf_texture = daisy_tf_texture;
+			daisy_vol_mat->plane = Vector4(15, 15, 20, -7);
+			daisy_node->material = daisy_vol_mat;
+			daisy_node->mesh = daisy_mesh;
+			daisy_node->mesh->createCube();
+			
+			float width_div = daisy_volume->width * daisy_volume->widthSpacing; //for right proportions
+			daisy_node->model.setScale(1, daisy_volume->height * daisy_volume->heightSpacing / width_div, daisy_volume->depth * daisy_volume->depthSpacing / width_div);
+			
+			node_list.push_back(daisy_node);
+		}
+
+		////FOOT
+		{
+			Volume* foot_volume = new Volume();
+			Texture* foot_vol_texture = new Texture();
+			Texture* foot_tf_texture = Texture::Get("data/images/tf_imagen.png");
+			Mesh* foot_mesh = new Mesh();
+			VolumeMaterial* foot_vol_mat = new VolumeMaterial();
+			VolumeNode* foot_node = new VolumeNode("Volume node");
+
+			foot_volume->loadPNG("data/volumes/foot_16_16.png");
+			foot_vol_texture->create3DFromVolume(foot_volume, GL_CLAMP_TO_EDGE);
+			foot_vol_mat->texture = foot_vol_texture;
+			foot_vol_mat->tf_texture = foot_tf_texture;
+			foot_vol_mat->plane = Vector4(15, 15, 20, -7);
+			foot_node->material = foot_vol_mat;
+			foot_node->mesh = foot_mesh;
+			foot_node->mesh->createCube();
+
+			float width_div = foot_volume->width * foot_volume->widthSpacing; //for right proportions
+			foot_node->model.setScale(1, foot_volume->height * foot_volume->heightSpacing / width_div, foot_volume->depth * foot_volume->depthSpacing / width_div);
+		
+			node_list.push_back(foot_node);
+		}
+
+		////ORANGE
+		{
+			Volume* orange_volume = new Volume();
+			Texture* orange_vol_texture = new Texture();
+			Texture* orange_tf_texture = Texture::Get("data/images/tf_imagen.png");
+			Mesh* orange_mesh = new Mesh();
+			VolumeMaterial* orange_vol_mat = new VolumeMaterial();
+			VolumeNode* orange_node = new VolumeNode("Volume node");
+			
+			orange_volume->loadPVM("data/volumes/Orange.pvm");
+			orange_vol_texture->create3DFromVolume(orange_volume, GL_CLAMP_TO_EDGE);
+			orange_vol_mat->texture = orange_vol_texture;
+			orange_vol_mat->tf_texture = orange_tf_texture;
+			orange_vol_mat->plane = Vector4(15, 15, 20, -7);
+			orange_node->material = orange_vol_mat;
+			orange_node->mesh = orange_mesh;
+			orange_node->mesh->createCube();
+			
+			float width_div = orange_volume->width * orange_volume->widthSpacing; //for right proportions
+			orange_node->model.setScale(1, orange_volume->height * orange_volume->heightSpacing / width_div, orange_volume->depth * orange_volume->depthSpacing / width_div);
+			
+			node_list.push_back(orange_node);
+		}
+
+		////TEAPOT
+		{
+			Volume* teapot_volume = new Volume();
+			Texture* teapot_vol_texture = new Texture();
+			Texture* teapot_tf_texture = Texture::Get("data/images/tf_imagen.png");
+			Mesh* teapot_mesh = new Mesh();
+			VolumeMaterial* teapot_vol_mat = new VolumeMaterial();
+			VolumeNode* teapot_node = new VolumeNode("Volume node");
+
+			teapot_volume->loadPNG("data/volumes/teapot_16_16.png");
+			teapot_vol_texture->create3DFromVolume(teapot_volume, GL_CLAMP_TO_EDGE);
+			teapot_vol_mat->texture = teapot_vol_texture;
+			teapot_vol_mat->tf_texture = teapot_tf_texture;
+			teapot_vol_mat->plane = Vector4(15, 15, 20, -7);
+			teapot_node->material = teapot_vol_mat;
+			teapot_node->mesh = teapot_mesh;
+			teapot_node->mesh->createCube();
+
+			float width_div = teapot_volume->width * teapot_volume->widthSpacing; //for right proportions
+			teapot_node->model.setScale(1, teapot_volume->height * teapot_volume->heightSpacing / width_div, teapot_volume->depth * teapot_volume->depthSpacing / width_div);
+		
+			node_list.push_back(teapot_node);
+		}
+
 	}
 	
 	//hide the cursor
@@ -97,12 +221,18 @@ void Application::render(void)
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 
-	for (size_t i = 0; i < node_list.size(); i++) {
-		node_list[i]->render(camera);
+	node_list[vol_index]->render(camera);
 
-		if(render_wireframe)
-			node_list[i]->renderWireframe(camera);
-	}
+	if (render_wireframe)
+		node_list[vol_index]->renderWireframe(camera);
+
+	//for (size_t i = 0; i < node_list.size(); i++) {
+	//
+	//	node_list[i]->render(camera);
+	//
+	//	if(render_wireframe)
+	//		node_list[i]->renderWireframe(camera);
+	//}
 
 	//Draw the floor grid
 	if(render_debug) drawGrid();
@@ -117,9 +247,11 @@ void Application::update(double seconds_elapsed)
 	float angle = seconds_elapsed * 10.f * DEG2RAD;
 	if (autorotate)
 	{
-		for (int i = 0; i < node_list.size(); i++) {
-			node_list[i]->model.rotate(angle, Vector3(0, 1, 0));
-		}
+		node_list[vol_index]->model.rotate(angle, Vector3(0, 1, 0));
+
+		//for (int i = 0; i < node_list.size(); i++) {
+		//	node_list[i]->model.rotate(angle, Vector3(0, 1, 0));
+		//}
 	}
 
 	// mouse input to rotate the cam
@@ -231,18 +363,37 @@ void Application::renderInMenu() {
 	{
 		unsigned int count = 0;
 		std::stringstream ss;
-		for (auto& node : node_list)
+		//for (auto& node : node_list)
 		{
 			ss << count;
-			if (ImGui::TreeNode(node->name.c_str()))
+			if (ImGui::TreeNode(node_list[vol_index]->name.c_str()))
 			{
-				node->renderInMenu();
+				node_list[vol_index]->renderInMenu();
 				ImGui::TreePop();
 			}
 			++count;
 			ss.str("");
 		}
 		ImGui::TreePop();
+	}
+
+	//to pass to next node
+	ImGui::Text("Select volume: %d", vol_index + 1);
+
+	if (ImGui::ArrowButton("##left", ImGuiDir_Left))
+	{
+		// Decrease the counter when left arrow is clicked
+		if (vol_index == 0) vol_index = node_list.size();
+		vol_index--;
+	}
+
+	ImGui::SameLine(); // Put the next UI element on the same line
+
+	if (ImGui::ArrowButton("##right", ImGuiDir_Right))
+	{
+		// Increase the counter when right arrow is clicked
+		if (vol_index == node_list.size() - 1) vol_index = -1;
+		vol_index++;
 	}
 
 	ImGui::Checkbox("Render debug", &render_debug);

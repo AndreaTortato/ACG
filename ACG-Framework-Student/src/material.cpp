@@ -90,18 +90,19 @@ VolumeMaterial::VolumeMaterial()
 
 	jittering = false;
 	transferF = false;
-	clipping = true;
+	clipping = false;
 	isosurface = false;
 
-	threshold = 0.5;
+	threshold = 0.4;
+	h_value = 0.01;
 
-	light_pos = vec3(10.0, 10.0, 10.0);
-	ambient_light = vec3(5.0, 5.0, 5.0);
-	diffuse_light = vec3(3.0, 3.0, 4.0);
+	light_pos = vec3(50.0, 50.0, 50.0);
+	ambient_light = vec3(0.0, 0.0, 0.0);
+	diffuse_light = vec3(1.0, 1.0, 1.0);
 	specular_light = vec3(1.0, 1.0, 1.0);;
-	ka = vec3(2.0, 1.0, 1.0);
-	kd = vec3(1.0, 2.0, 1.0);
-	alpha = 20.0;
+	ka = vec3(2.0, 2.0, 2.0);
+	kd = vec3(2.0, 2.0, 2.0);
+	alpha = 10.0;
 }
 
 VolumeMaterial::~VolumeMaterial()
@@ -135,6 +136,7 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 
 	shader->setUniform("u_plane", plane);
 	shader->setUniform("u_threshold", threshold);
+	shader->setUniform("h_value", h_value);
 
 	shader->setUniform("light_pos", light_pos);
 	shader->setUniform("ambient_light", ambient_light);
@@ -174,11 +176,12 @@ void VolumeMaterial::renderInMenu()
 	ImGui::ColorEdit3("Color", (float*)&color); // Edit 3 floats representing a color
 	ImGui::SliderFloat("Ray Step Length", (float*)&ray_step, 0.001, 0.3);
 	ImGui::SliderFloat("Brightness", (float*)&brightness, 0.1, 10.0);
-	//ImGui::SliderFloat("TF threshold", (float*)&threshold, 0.0, 1.0);
 
 	ImGui::Checkbox("Jittering", (bool*)&jittering);
 	ImGui::Checkbox("Transfer Function", (bool*)&transferF);
 	ImGui::Checkbox("Clipping", (bool*)&clipping);
 	ImGui::Checkbox("Isosurface", (bool*)&isosurface);
 
+	if (isosurface) ImGui::SliderFloat("TF threshold", (float*)&threshold, 0.01, 1.0);
+	if (isosurface) ImGui::SliderFloat("Gradient h_value", (float*)&h_value, 0.01, 1.0);
 }

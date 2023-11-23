@@ -17,6 +17,7 @@ public:
 	static Application* instance;
 
 	std::vector <SceneNode*> node_list;
+	std::vector <SceneNode*> all_volumes_list;
 
 	// window
 	SDL_Window* window;
@@ -31,6 +32,8 @@ public:
 	bool must_exit;
 	bool render_debug;
 	bool autorotate;
+
+	int vol_index = 0;
 
 	// some vars
 	static Camera* camera; //our GLOBAL camera
