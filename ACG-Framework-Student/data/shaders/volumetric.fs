@@ -104,8 +104,11 @@ void main()
 
     if (u_jittering)
     {
-        // We did the second aproach
+        //First approach
+        //float offset = texture2D(noise_texture, gl_FragCoord.xy/128.0).xyz;
+        //Second approach
         float offset = rand(gl_FragCoord.xy);
+
         samplePos = v_position + u_ray_step_lenght * rayDir * offset;
     }
     
